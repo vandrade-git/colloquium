@@ -1,0 +1,64 @@
+spring:
+  profiles:
+    active: development
+
+  application:
+    name: colloquium
+
+  output:
+    ansi:
+      enabled: always
+
+  jooq:
+    sql-dialect: sqlite
+
+  sql:
+    init:
+      mode: always
+
+server:
+  port: 6080
+
+logging:
+  file:
+    path: logs
+    name: colloquium
+  level:
+    org.jooq.tools: debug
+
+
+---
+
+
+spring:
+  config:
+    activate:
+      on-profile: development
+
+  datasource:
+    url: jdbc:sqlite:database.db
+    driver-class-name: org.sqlite.JDBC
+    username: user
+    password: password
+
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+
+---
+
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:sqlite:test_database.db
+    driver-class-name: org.sqlite.JDBC
+    username: user
+    password: password
+
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
